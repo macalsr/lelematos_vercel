@@ -1,10 +1,10 @@
 export type Work = {
   slug: string;
   title: string;
-  technique: string;
-  year: string;
+  technique?: string;
+  year?: string;
   category: string;
-  description: string;
+  description?: string;
   image: string;
   alt: string;
   imageWidth: number;

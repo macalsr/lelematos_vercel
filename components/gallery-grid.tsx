@@ -112,11 +112,13 @@ export function GalleryGrid({ works }: GalleryGridProps) {
                     <X size={23} weight="light" />
                   </button>
                 </div>
-                <dl className="mt-8 grid gap-3 border-t border-[var(--line)] pt-4 text-[12px]">
-                  <div className="flex justify-between gap-3"><dt className="text-[var(--ink-muted)]">Técnica</dt><dd className="text-right">{activeWork.technique}</dd></div>
-                  <div className="flex justify-between gap-3"><dt className="text-[var(--ink-muted)]">Ano</dt><dd>{activeWork.year}</dd></div>
-                </dl>
-                <p className="mt-8 max-w-[32ch] text-[13px] leading-5 text-[var(--ink-muted)]">{activeWork.description}</p>
+                {activeWork.technique || activeWork.year ? (
+                  <dl className="mt-8 grid gap-3 border-t border-[var(--line)] pt-4 text-[12px]">
+                    {activeWork.technique ? <div className="flex justify-between gap-3"><dt className="text-[var(--ink-muted)]">Técnica</dt><dd className="text-right">{activeWork.technique}</dd></div> : null}
+                    {activeWork.year ? <div className="flex justify-between gap-3"><dt className="text-[var(--ink-muted)]">Ano</dt><dd>{activeWork.year}</dd></div> : null}
+                  </dl>
+                ) : null}
+                {activeWork.description ? <p className="mt-8 max-w-[32ch] text-[13px] leading-5 text-[var(--ink-muted)]">{activeWork.description}</p> : null}
                 <Link href={`/obras/${activeWork.slug}`} onClick={() => setActiveIndex(null)} className="mt-8 inline-flex w-fit border-b border-[var(--accent)] pb-1 text-[12px] text-[var(--ink)] hover:text-[var(--accent-blue)]">Ver obra</Link>
                 <div className="mt-8 flex gap-2">
                   <button type="button" aria-label="Obra anterior" onClick={() => setActiveIndex((activeIndex - 1 + works.length) % works.length)} className="flex h-9 w-9 items-center justify-center border border-[var(--line-strong)] text-[var(--ink-muted)] transition-colors hover:border-[var(--accent-blue)] hover:text-[var(--accent-blue)]"><ArrowLeft size={17} /></button>

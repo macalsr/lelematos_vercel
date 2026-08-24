@@ -4,12 +4,21 @@ import { SiteFooter } from "@/components/site-footer";
 import { SiteHeader } from "@/components/site-header";
 import { getSiteSettings, getWorks } from "@/lib/sanity";
 
+export const revalidate = 60;
+
 export default async function HomePage() {
   const [works, siteSettings] = await Promise.all([getWorks(), getSiteSettings()]);
 
   return (
     <main>
-      <SiteHeader logo={siteSettings?.logo} instagram={siteSettings?.instagram} whatsapp={siteSettings?.whatsapp} />
+      <SiteHeader
+        logoType={siteSettings?.logoType}
+        logoImage={siteSettings?.logoImage}
+        logoText={siteSettings?.logoText}
+        logoAlt={siteSettings?.logoAlt}
+        instagram={siteSettings?.instagram}
+        whatsapp={siteSettings?.whatsapp}
+      />
 
       <section id="galeria" className="scroll-mt-8 pb-24 md:pb-40">
         <h1 className="sr-only">Galeria de obras</h1>
@@ -34,6 +43,7 @@ export default async function HomePage() {
         whatsapp={siteSettings?.whatsapp}
         contactTitle={siteSettings?.contactTitle}
         contactEmail={siteSettings?.contactEmail}
+        logoText={siteSettings?.logoText}
       />
     </main>
   );

@@ -8,9 +8,10 @@ type SiteFooterProps = {
   whatsapp?: string;
   contactTitle?: string;
   contactEmail?: string;
+  logoText?: string;
 };
 
-export function SiteFooter({ instagram, whatsapp, contactTitle, contactEmail }: SiteFooterProps) {
+export function SiteFooter({ instagram, whatsapp, contactTitle, contactEmail, logoText }: SiteFooterProps) {
   const instagramUrl = instagram || "https://www.instagram.com/";
   const whatsappUrl = whatsapp || "https://wa.me/";
   const email = contactEmail || "email@exemplo.com";
@@ -37,7 +38,7 @@ export function SiteFooter({ instagram, whatsapp, contactTitle, contactEmail }: 
         </div>
       </div>
       <div className="mx-auto flex max-w-[1440px] justify-between border-t border-[var(--line)] px-5 py-5 font-mono text-[10px] text-[var(--ink-muted)] sm:px-8 lg:px-12">
-        <span>Logo</span>
+        <span>{logoText || "Logo"}</span>
         <span>© {new Date().getFullYear()}</span>
       </div>
     </footer>
