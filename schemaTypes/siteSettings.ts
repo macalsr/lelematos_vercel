@@ -12,6 +12,13 @@ export const siteSettings = defineType({
   ],
   fields: [
     defineField({
+      name: "siteTitle",
+      title: "Título da aba",
+      description: "Texto exibido no título da aba do navegador.",
+      type: "string",
+      group: "identity",
+    }),
+    defineField({
       name: "logo",
       title: "Logo",
       description: "Imagem exibida no lugar do nome no cabeçalho.",

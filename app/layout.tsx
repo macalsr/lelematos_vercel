@@ -26,7 +26,7 @@ export async function generateMetadata(): Promise<Metadata> {
   const siteSettings = await getSiteSettings();
 
   return {
-    title: "Portfólio de artista",
+    title: siteSettings?.siteTitle || "Portfólio de artista",
     description: "Portfólio online com galeria de obras.",
     ...(siteSettings?.favicon
       ? {
