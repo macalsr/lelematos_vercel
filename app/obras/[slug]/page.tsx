@@ -19,7 +19,7 @@ export async function generateStaticParams() {
 export async function generateMetadata({ params }: WorkPageProps): Promise<Metadata> {
   const { slug } = await params;
   const work = await getWork(slug);
-  return work ? { title: `${work.title} | Lelematoos`, description: work.description } : {};
+  return work ? { title: `${work.title} | Portfólio`, description: work.description } : {};
 }
 
 export default async function WorkPage({ params }: WorkPageProps) {
@@ -29,6 +29,7 @@ export default async function WorkPage({ params }: WorkPageProps) {
   if (!work) notFound();
 
   const aspectRatio = `${work.imageWidth} / ${work.imageHeight}`;
+  const contactEmail = siteSettings?.contactEmail || "email@exemplo.com";
 
   return (
     <main>
@@ -47,7 +48,7 @@ export default async function WorkPage({ params }: WorkPageProps) {
               <div className="flex justify-between gap-4"><dt className="text-[var(--ink-muted)]">Técnica</dt><dd className="max-w-[20ch] text-right">{work.technique}</dd></div>
               <div className="flex justify-between gap-4"><dt className="text-[var(--ink-muted)]">Ano</dt><dd>{work.year}</dd></div>
             </dl>
-            <a href="mailto:contato@lelematoos.art" className="mt-10 inline-flex items-center gap-2 border-b border-[var(--accent)] pb-1.5 text-[13px] transition-colors hover:text-[var(--accent)]">Consultar sobre esta obra <ArrowUpRight size={16} /></a>
+            <a href={`mailto:${contactEmail}`} className="mt-10 inline-flex items-center gap-2 border-b border-[var(--accent)] pb-1.5 text-[13px] transition-colors hover:text-[var(--accent)]">Consultar sobre esta obra <ArrowUpRight size={16} /></a>
           </div>
         </div>
       </article>

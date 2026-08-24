@@ -4,8 +4,8 @@ import { structureTool } from "sanity/structure";
 import { schemaTypes } from "./schemaTypes";
 
 export default defineConfig({
-  name: "lelematoos",
-  title: "Lelematoos",
+  name: "portfolio",
+  title: "Portfólio",
   projectId: process.env.NEXT_PUBLIC_SANITY_PROJECT_ID || "replace-project-id",
   dataset: process.env.NEXT_PUBLIC_SANITY_DATASET || "production",
   plugins: [structureTool(), visionTool()],

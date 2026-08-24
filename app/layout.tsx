@@ -26,8 +26,8 @@ export async function generateMetadata(): Promise<Metadata> {
   const siteSettings = await getSiteSettings();
 
   return {
-    title: "Lelematoos | Galeria de arte",
-    description: "Galeria online da Lelematoos, artista visual brasileira.",
+    title: "Portfólio de artista",
+    description: "Portfólio online com galeria de obras.",
     ...(siteSettings?.favicon
       ? {
           icons: {

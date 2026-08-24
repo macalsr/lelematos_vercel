@@ -23,7 +23,7 @@ export function SiteHeader({ logo, instagram, whatsapp }: SiteHeaderProps) {
   const pathname = usePathname();
   const galleryIsActive = pathname === "/" || pathname.startsWith("/obras/");
   const instagramUrl = instagram || "https://www.instagram.com/";
-  const whatsappUrl = whatsapp || "https://wa.me/5500000000000";
+  const whatsappUrl = whatsapp || "https://wa.me/";
 
   return (
     <header className="relative z-20 bg-[var(--canvas)]">
@@ -31,12 +31,12 @@ export function SiteHeader({ logo, instagram, whatsapp }: SiteHeaderProps) {
         <Link
           href="/"
           className="block text-center text-[var(--ink)]"
-          aria-label="Lelematoos, início"
+          aria-label={logo?.alt || "Logo, início"}
         >
           {logo?.url && logo.width && logo.height ? (
             <Image
               src={logo.url}
-              alt={logo.alt || "Lelematoos"}
+              alt={logo.alt || "Logo"}
               width={logo.width}
               height={logo.height}
               priority
@@ -45,7 +45,7 @@ export function SiteHeader({ logo, instagram, whatsapp }: SiteHeaderProps) {
             />
           ) : (
             <span className="block font-display text-[clamp(3.75rem,12vw,10rem)] font-medium leading-[0.78] tracking-[-0.1em]">
-              Lelematoos
+              Logo
             </span>
           )}
         </Link>

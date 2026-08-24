@@ -4,12 +4,19 @@ export const siteSettings = defineType({
   name: "siteSettings",
   title: "Configurações do site",
   type: "document",
+  groups: [
+    { name: "identity", title: "Identidade visual" },
+    { name: "social", title: "Redes sociais" },
+    { name: "about", title: "Seção Sobre" },
+    { name: "contact", title: "Seção Contato" },
+  ],
   fields: [
     defineField({
       name: "logo",
       title: "Logo",
       description: "Imagem exibida no lugar do nome no cabeçalho.",
       type: "image",
+      group: "identity",
       options: { hotspot: true },
       fields: [
         defineField({
@@ -22,49 +29,57 @@ export const siteSettings = defineType({
     }),
     defineField({
       name: "favicon",
-      title: "Ícone da aba (favicon)",
+      title: "Favicon",
       description: "Imagem exibida na aba e nos favoritos do navegador. Prefira uma imagem quadrada.",
       type: "image",
+      group: "identity",
     }),
     defineField({
       name: "instagram",
       title: "Instagram",
       description: "URL completa do perfil da artista.",
       type: "url",
+      group: "social",
     }),
     defineField({
       name: "whatsapp",
       title: "WhatsApp",
       description: "URL completa para iniciar uma conversa no WhatsApp.",
       type: "url",
+      group: "social",
     }),
     defineField({
       name: "aboutTitle",
-      title: "Sobre: título",
+      title: "Título da seção Sobre",
       type: "string",
+      group: "about",
     }),
     defineField({
       name: "aboutIntro",
-      title: "Sobre: primeiro texto",
+      title: "Texto da seção Sobre",
       type: "text",
+      group: "about",
       rows: 4,
     }),
     defineField({
       name: "aboutDetails",
-      title: "Sobre: segundo texto",
+      title: "Informações da seção Sobre",
       type: "text",
+      group: "about",
       rows: 4,
     }),
     defineField({
       name: "contactTitle",
-      title: "Contato: título",
+      title: "Título da seção Contato",
       type: "string",
+      group: "contact",
     }),
     defineField({
       name: "contactEmail",
-      title: "Contato: e-mail",
+      title: "E-mail da seção Contato",
       description: "E-mail exibido no rodapé, sem o prefixo mailto:.",
       type: "string",
+      group: "contact",
     }),
   ],
   preview: {

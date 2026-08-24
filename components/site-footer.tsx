@@ -12,14 +12,14 @@ type SiteFooterProps = {
 
 export function SiteFooter({ instagram, whatsapp, contactTitle, contactEmail }: SiteFooterProps) {
   const instagramUrl = instagram || "https://www.instagram.com/";
-  const whatsappUrl = whatsapp || "https://wa.me/5500000000000";
-  const email = contactEmail || "contato@lelematoos.art";
+  const whatsappUrl = whatsapp || "https://wa.me/";
+  const email = contactEmail || "email@exemplo.com";
 
   return (
     <footer id="contato" className="border-t border-[var(--line)]">
       <div className="mx-auto grid max-w-[1440px] gap-14 px-5 py-16 sm:px-8 md:grid-cols-[1.4fr_0.6fr] md:py-24 lg:px-12">
         <div>
-          <h2 className="max-w-[9ch] font-display text-[clamp(2.8rem,7vw,6.5rem)] leading-[0.88] tracking-[-0.08em]">{contactTitle || "Vamos conversar sobre uma obra."}</h2>
+          <h2 className="max-w-[9ch] font-display text-[clamp(2.8rem,7vw,6.5rem)] leading-[0.88] tracking-[-0.08em]">{contactTitle || "Título da seção Contato"}</h2>
           <a href={`mailto:${email}`} className="mt-8 inline-flex items-center gap-2 border-b border-[var(--accent)] pb-1.5 text-[14px] text-[var(--ink)] transition-colors hover:text-[var(--accent)]">
             {email} <ArrowUpRight size={16} />
           </a>
@@ -37,7 +37,7 @@ export function SiteFooter({ instagram, whatsapp, contactTitle, contactEmail }: 
         </div>
       </div>
       <div className="mx-auto flex max-w-[1440px] justify-between border-t border-[var(--line)] px-5 py-5 font-mono text-[10px] text-[var(--ink-muted)] sm:px-8 lg:px-12">
-        <span>Lelematoos</span>
+        <span>Logo</span>
         <span>© {new Date().getFullYear()}</span>
       </div>
     </footer>
