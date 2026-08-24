@@ -14,43 +14,50 @@ const links = [
 ];
 
 type SiteHeaderProps = {
-  logo?: SiteLogo;
+  logoType?: "image" | "text";
+  logoImage?: SiteLogo;
+  logoText?: string;
+  logoAlt?: string;
   instagram?: string;
   whatsapp?: string;
 };
 
-export function SiteHeader({ logo, instagram, whatsapp }: SiteHeaderProps) {
+export function SiteHeader({ logoType, logoImage, logoText, logoAlt, instagram, whatsapp }: SiteHeaderProps) {
   const pathname = usePathname();
   const galleryIsActive = pathname === "/" || pathname.startsWith("/obras/");
   const instagramUrl = instagram || "https://www.instagram.com/";
   const whatsappUrl = whatsapp || "https://wa.me/";
+  const resolvedLogoText = logoText || "Logo";
+  const logoLabel = logoAlt || (logoText ? `${logoText}, início` : "Logo, início");
+  const showImage = logoType === "image" && logoImage?.url && logoImage.width && logoImage.height;
 
   return (
     <header className="relative z-20 bg-[var(--canvas)]">
-      <div className="mx-auto max-w-[1440px] px-5 pb-10 pt-10 sm:px-8 sm:pb-12 md:pb-16 md:pt-16 lg:px-12">
+      <div className="mx-auto max-w-[1440px] px-5 pb-6 pt-6 sm:px-8 sm:pb-8 md:pb-10 md:pt-10 lg:px-12">
         <Link
           href="/"
           className="block text-center text-[var(--ink)]"
-          aria-label={logo?.alt || "Logo, início"}
+          aria-label={logoLabel}
         >
-          {logo?.url && logo.width && logo.height ? (
-            <Image
-              src={logo.url}
-              alt={logo.alt || "Logo"}
-              width={logo.width}
-              height={logo.height}
-              priority
-              sizes="(max-width: 767px) 86vw, 720px"
-              className="mx-auto h-auto max-h-[clamp(3.75rem,12vw,10rem)] w-auto max-w-[86vw] object-contain"
-            />
+          {showImage ? (
+            <span className="relative left-1/2 block aspect-[2.45/1] w-screen -translate-x-1/2 overflow-hidden">
+              <Image
+                src={logoImage.url}
+                alt={logoAlt || resolvedLogoText}
+                fill
+                priority
+                sizes="100vw"
+                className="object-cover object-center"
+              />
+            </span>
           ) : (
             <span className="block font-display text-[clamp(3.75rem,12vw,10rem)] font-medium leading-[0.78] tracking-[-0.1em]">
-              Logo
+              {resolvedLogoText}
             </span>
           )}
         </Link>
 
-        <nav aria-label="Navegação principal" className="mt-11 flex items-center justify-center gap-6 sm:gap-9 md:mt-14">
+        <nav aria-label="Navegação principal" className="mt-4 flex items-center justify-center gap-6 sm:mt-5 sm:gap-9 md:mt-6">
           {links.map((link) => {
             const isActive = link.label === "Galeria" && galleryIsActive;
 
