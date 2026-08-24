@@ -8,6 +8,7 @@ export type SiteLogo = {
 };
 
 export type SiteSettings = {
+  siteTitle?: string;
   logoType?: "image" | "text";
   logoImage?: SiteLogo;
   logoText?: string;
@@ -52,6 +53,7 @@ const workProjection = `{
 }`;
 
 const siteSettingsProjection = `{
+  siteTitle,
   "logoType": coalesce(logoType, select(defined(logoImage) || defined(logo) => "image", "text")),
   "logoImage": {
     "url": coalesce(logoImage.asset->url, logo.asset->url),

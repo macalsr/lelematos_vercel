@@ -20,10 +20,10 @@ export async function generateStaticParams() {
 
 export async function generateMetadata({ params }: WorkPageProps): Promise<Metadata> {
   const { slug } = await params;
-  const work = await getWork(slug);
+  const [work, siteSettings] = await Promise.all([getWork(slug), getSiteSettings()]);
   return work
     ? {
-        title: `${work.title} | Portfólio`,
+        title: `${work.title} | ${siteSettings?.siteTitle || "Portfólio"}`,
         ...(work.description ? { description: work.description } : {}),
       }
     : {};
