@@ -1,0 +1,31 @@
+# Projeto e skills locais
+.agents/
+skills-lock.json
+
+# Dependências
+node_modules/
+
+# Next.js
+.next/
+out/
+build/
+
+# Variáveis de ambiente locais
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+.env.example
+
+# Vercel
+.vercel/
+
+# Testes e cache
+coverage/
+*.tsbuildinfo
+
+# Logs e arquivos do sistema
+*.log
+.DS_Store
+Thumbs.db
