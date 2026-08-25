@@ -20,6 +20,13 @@ export const work = defineType({
       validation: (rule) => rule.required(),
     }),
     defineField({ name: "description", title: "Descrição", type: "text", rows: 3 }),
+    defineField({
+      name: "displayOrder",
+      title: "Ordem de exibição",
+      description: "Número menor aparece primeiro na galeria. Deixe vazio para usar o destaque e o ano como fallback.",
+      type: "number",
+      validation: (rule) => rule.integer().min(1),
+    }),
     defineField({ name: "featured", title: "Destacar na galeria", type: "boolean", initialValue: false }),
   ],
   preview: { select: { title: "title", media: "image", subtitle: "year" } },

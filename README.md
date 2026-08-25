@@ -66,6 +66,8 @@ npx sanity manage
 
 O site usa o conteúdo estático de `content/works.ts` quando as variáveis do Sanity não estão configuradas. Assim, o projeto continua navegável antes da criação do dataset.
 
+Para configurar a ordem da galeria, preencha o campo `Ordem de exibição` em cada documento `Obra` no Sanity. Use `1` para a primeira obra, `2` para a segunda e assim por diante. Obras sem esse campo ficam depois das obras ordenadas e usam destaque e ano como fallback. A alteração pode levar até 60 segundos para aparecer no site.
+
 ## Rotas
 
 - `/` Galeria inicial, seção sobre e contato

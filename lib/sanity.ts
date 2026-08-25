@@ -49,6 +49,7 @@ const workProjection = `{
   "alt": image.alt,
   "imageWidth": image.asset->metadata.dimensions.width,
   "imageHeight": image.asset->metadata.dimensions.height,
+  displayOrder,
   featured
 }`;
 
@@ -91,7 +92,7 @@ export async function getWorks(): Promise<Work[]> {
 
   try {
     const works = await client.fetch<Work[]>(
-      `*[_type == "work"] | order(featured desc, year desc) ${workProjection}`,
+      `*[_type == "work"] | order(coalesce(displayOrder, 999999) asc, featured desc, year desc, _createdAt desc) ${workProjection}`,
       {},
       publicFetchOptions,
     );
