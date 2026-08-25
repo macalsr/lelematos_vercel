@@ -13,6 +13,23 @@ type GalleryGridProps = {
   works: Work[];
 };
 
+function distributeWorkIndexes(works: Work[], columnCount: number) {
+  const columns = Array.from({ length: columnCount }, () => [] as number[]);
+  const columnHeights = Array.from({ length: columnCount }, () => 0);
+
+  works.forEach((work, index) => {
+    const shortestColumn = columnHeights.reduce(
+      (shortestIndex, height, currentIndex) => (height < columnHeights[shortestIndex] ? currentIndex : shortestIndex),
+      0,
+    );
+
+    columns[shortestColumn].push(index);
+    columnHeights[shortestColumn] += work.imageHeight / Math.max(work.imageWidth, 1);
+  });
+
+  return columns;
+}
+
 export function GalleryGrid({ works }: GalleryGridProps) {
   const [activeIndex, setActiveIndex] = useState<number | null>(null);
   const reduceMotion = useReducedMotion();
@@ -36,12 +53,15 @@ export function GalleryGrid({ works }: GalleryGridProps) {
 
   const activeWork = activeIndex === null ? null : works[activeIndex];
 
-  const renderGallery = (columnCount: number, className: string) => (
-    <div className={className}>
-      {Array.from({ length: columnCount }, (_, columnIndex) => (
+  const renderGallery = (columnCount: number, className: string) => {
+    const columns = distributeWorkIndexes(works, columnCount);
+
+    return (
+      <div className={className}>
+        {columns.map((column, columnIndex) => (
         <div key={columnIndex} className="flex min-w-0 flex-col gap-1">
-          {works.map((work, index) => {
-            if (index % columnCount !== columnIndex) return null;
+          {column.map((index) => {
+            const work = works[index];
 
             const aspectRatio = `${work.imageWidth} / ${work.imageHeight}`;
 
@@ -81,9 +101,10 @@ export function GalleryGrid({ works }: GalleryGridProps) {
             );
           })}
         </div>
-      ))}
-    </div>
-  );
+        ))}
+      </div>
+    );
+  };
 
   return (
     <>
