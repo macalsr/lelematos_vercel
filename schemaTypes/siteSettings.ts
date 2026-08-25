@@ -35,6 +35,13 @@ export const siteSettings = defineType({
       ],
     }),
     defineField({
+      name: "logoText",
+      title: "Texto do logo no rodapé",
+      description: "Texto exibido no rodapé. O cabeçalho continua usando a imagem configurada acima.",
+      type: "string",
+      group: "identity",
+    }),
+    defineField({
       name: "favicon",
       title: "Favicon",
       description: "Imagem exibida na aba e nos favoritos do navegador. Prefira uma imagem quadrada.",
