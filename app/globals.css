@@ -56,15 +56,6 @@ button {
   font: inherit;
 }
 
-.gallery-columns {
-  column-gap: 4px;
-}
-
-.gallery-item {
-  break-inside: avoid;
-  margin-bottom: 4px;
-}
-
 .art-image {
   transition: transform 700ms cubic-bezier(0.16, 1, 0.3, 1), filter 700ms cubic-bezier(0.16, 1, 0.3, 1);
 }
