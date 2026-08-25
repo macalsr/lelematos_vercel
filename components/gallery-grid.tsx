@@ -36,48 +36,59 @@ export function GalleryGrid({ works }: GalleryGridProps) {
 
   const activeWork = activeIndex === null ? null : works[activeIndex];
 
+  const renderGallery = (columnCount: number, className: string) => (
+    <div className={className}>
+      {Array.from({ length: columnCount }, (_, columnIndex) => (
+        <div key={columnIndex} className="flex min-w-0 flex-col gap-1">
+          {works.map((work, index) => {
+            if (index % columnCount !== columnIndex) return null;
+
+            const aspectRatio = `${work.imageWidth} / ${work.imageHeight}`;
+
+            return (
+              <motion.figure
+                key={work.slug}
+                initial={reduceMotion ? false : { opacity: 0, y: 22 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, amount: 0.16 }}
+                transition={{ duration: 0.65, delay: Math.min(index * 0.06, 0.24), ease: [0.16, 1, 0.3, 1] }}
+                className="group relative"
+              >
+                <button
+                  type="button"
+                  onClick={() => setActiveIndex(index)}
+                  className="art-frame group block w-full text-left"
+                  aria-label={`Abrir ${work.title}`}
+                >
+                  <span style={{ aspectRatio }} className="relative block overflow-hidden bg-[var(--canvas)]">
+                    <Image
+                      src={work.image}
+                      alt={work.alt}
+                      fill
+                      priority={index === 0}
+                      sizes="(max-width: 767px) 50vw, 33.333vw"
+                      className="art-image object-contain"
+                    />
+                    <span className="pointer-events-none absolute inset-0 bg-black/25 opacity-0 transition-opacity duration-500 group-hover:opacity-100 group-focus-within:opacity-100 max-md:opacity-0" />
+                  </span>
+                </button>
+                <figcaption className="pointer-events-none absolute inset-x-0 bottom-0 flex translate-y-1 items-end justify-between gap-3 bg-gradient-to-t from-black/70 to-transparent px-4 pb-4 pt-12 opacity-0 transition-[opacity,transform] duration-500 group-hover:translate-y-0 group-hover:opacity-100 group-focus-within:translate-y-0 group-focus-within:opacity-100 max-md:pointer-events-auto max-md:translate-y-0 max-md:opacity-100">
+                  <Link href={`/obras/${work.slug}`} className="pointer-events-auto font-display text-[14px] tracking-[-0.02em] text-white transition-colors hover:text-[var(--focus)] sm:text-[16px]">
+                    {work.title}
+                  </Link>
+                </figcaption>
+              </motion.figure>
+            );
+          })}
+        </div>
+      ))}
+    </div>
+  );
+
   return (
     <>
-      <div className="gallery-columns columns-2 md:columns-3">
-        {works.map((work, index) => {
-          const aspectRatio = `${work.imageWidth} / ${work.imageHeight}`;
-
-          return (
-            <motion.figure
-              key={work.slug}
-              initial={reduceMotion ? false : { opacity: 0, y: 22 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, amount: 0.16 }}
-              transition={{ duration: 0.65, delay: Math.min(index * 0.06, 0.24), ease: [0.16, 1, 0.3, 1] }}
-              className="gallery-item group relative"
-            >
-              <button
-                type="button"
-                onClick={() => setActiveIndex(index)}
-                className="art-frame group block w-full text-left"
-                aria-label={`Abrir ${work.title}`}
-              >
-                <span style={{ aspectRatio }} className="relative block overflow-hidden bg-[var(--canvas)]">
-                  <Image
-                    src={work.image}
-                    alt={work.alt}
-                    fill
-                    priority={index === 0}
-                    sizes="(max-width: 767px) 50vw, 33.333vw"
-                    className="art-image object-contain"
-                  />
-                  <span className="pointer-events-none absolute inset-0 bg-black/25 opacity-0 transition-opacity duration-500 group-hover:opacity-100 group-focus-within:opacity-100 max-md:opacity-0" />
-                </span>
-              </button>
-              <figcaption className="pointer-events-none absolute inset-x-0 bottom-0 flex translate-y-1 items-end justify-between gap-3 bg-gradient-to-t from-black/70 to-transparent px-4 pb-4 pt-12 opacity-0 transition-[opacity,transform] duration-500 group-hover:translate-y-0 group-hover:opacity-100 group-focus-within:translate-y-0 group-focus-within:opacity-100 max-md:pointer-events-auto max-md:translate-y-0 max-md:opacity-100">
-                <Link href={`/obras/${work.slug}`} className="pointer-events-auto font-display text-[14px] tracking-[-0.02em] text-white transition-colors hover:text-[var(--focus)] sm:text-[16px]">
-                  {work.title}
-                </Link>
-              </figcaption>
-            </motion.figure>
-          );
-        })}
-      </div>
+      {renderGallery(2, "grid grid-cols-2 gap-1 md:hidden")}
+      {renderGallery(3, "hidden gap-1 md:grid md:grid-cols-3")}
 
       <AnimatePresence>
         {activeWork && activeIndex !== null ? (
