@@ -9,6 +9,7 @@ export type Work = {
   alt: string;
   imageWidth: number;
   imageHeight: number;
+  displayOrder?: number;
   featured?: boolean;
 };
 
